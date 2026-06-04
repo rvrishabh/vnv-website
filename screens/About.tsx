@@ -126,7 +126,7 @@ export function About() {
                 </p>
                 <p className="mt-4 text-[16px] leading-relaxed text-ink-soft">
                   Well-versed in valuation methodologies, statutory requirements, and financial modeling across
-                  residential, commercial, industrial, and agricultural property — with more than 1,500 valuations
+                  residential, commercial, industrial, and agricultural property — with more than 3,000 valuations
                   conducted for banks, NBFCs, government agencies, and private clients.
                 </p>
               </Reveal>

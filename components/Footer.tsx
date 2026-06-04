@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
+import { OFFICES } from "../data";
 
 const SERVICES = [
   "Mortgage & Loan Security Valuation",
@@ -71,12 +72,17 @@ export function Footer() {
           <div className="md:col-span-3">
             <h4 className="font-mono text-[11px] uppercase tracking-[0.22em] text-gold-soft mb-4">Contact</h4>
             <ul className="space-y-3.5 text-[13.5px] text-white/70">
-              <li className="flex gap-3">
-                <MapPin size={16} strokeWidth={1.75} className="text-gold shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  Shop No. 10, Block-C25, IInd Floor, Cloth Market, Near Corporate Park, Sanjay Palace, Agra – 282002
-                </span>
-              </li>
+              {OFFICES.map((office) => (
+                <li key={office.city} className="flex gap-3">
+                  <MapPin size={16} strokeWidth={1.75} className="text-gold shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold-soft block mb-1">
+                      {office.city}
+                    </span>
+                    {office.address}
+                  </span>
+                </li>
+              ))}
               <li className="flex gap-3 items-center">
                 <Phone size={16} strokeWidth={1.75} className="text-gold shrink-0" />
                 <a href="tel:+919458563975" className="hover:text-white transition-colors">+91 94585 63975</a>

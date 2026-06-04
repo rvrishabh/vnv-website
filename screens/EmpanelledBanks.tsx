@@ -38,7 +38,7 @@ export function EmpanelledBanks() {
             <span className="hidden sm:block h-4 w-px bg-white/20" />
             <div className="flex items-center gap-3">
               <Building2 size={18} strokeWidth={1.75} className="text-gold" />
-              <span className="font-mono text-[12px] tracking-wide text-white/85">1,500+ Valuations Delivered</span>
+              <span className="font-mono text-[12px] tracking-wide text-white/85">3,000+ Valuations Delivered</span>
             </div>
           </div>
         </Container>

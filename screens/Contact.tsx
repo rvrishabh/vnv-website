@@ -15,6 +15,7 @@ import { PageHeader } from "../components/PageHeader";
 import { Seal } from "../components/Seal";
 import { Container, Eyebrow } from "../components/ui";
 import { submitEnquiry } from "../lib/contactApi";
+import { OFFICES } from "../data";
 
 const PROPERTY_TYPES = [
   "Residential",
@@ -190,7 +191,7 @@ export function Contact() {
                         value={form.city}
                         onChange={update("city")}
                         className={FIELD}
-                        placeholder="e.g. Agra"
+                        placeholder="e.g. Agra or Noida"
                       />
                     </div>
                   </div>
@@ -242,19 +243,23 @@ export function Contact() {
                   <Seal size={200} variant="watermark" />
                 </div>
                 <div className="relative">
-                  <Eyebrow tone="light">Office</Eyebrow>
+                  <Eyebrow tone="light">Offices</Eyebrow>
                   <div className="mt-6 space-y-5 text-[14px]">
-                    <div className="flex gap-3.5">
-                      <MapPin
-                        size={18}
-                        strokeWidth={1.75}
-                        className="text-gold shrink-0 mt-0.5"
-                      />
-                      <span className="leading-relaxed text-white/75">
-                        Shop No. 10, Block-C25, IInd Floor, Cloth Market, Near
-                        Corporate Park, Sanjay Palace, Agra – 282002
-                      </span>
-                    </div>
+                    {OFFICES.map((office) => (
+                      <div key={office.city} className="flex gap-3.5">
+                        <MapPin
+                          size={18}
+                          strokeWidth={1.75}
+                          className="text-gold shrink-0 mt-0.5"
+                        />
+                        <div className="leading-relaxed text-white/75">
+                          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold-soft mb-1">
+                            {office.city}
+                          </div>
+                          {office.address}
+                        </div>
+                      </div>
+                    ))}
                     <div className="flex gap-3.5 items-center">
                       <Phone
                         size={18}
@@ -358,7 +363,7 @@ export function Contact() {
                     <MapPin size={20} strokeWidth={2} className="text-gold" />
                   </div>
                   <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-navy bg-white/90 px-2.5 py-1 rounded-sm border border-steel">
-                    Sanjay Palace, Agra
+                    Agra · Noida
                   </span>
                 </div>
               </div>

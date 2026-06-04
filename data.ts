@@ -83,11 +83,31 @@ export const SERVICES: ServiceItem[] = [
   },
 ];
 
+export interface Office {
+  city: string;
+  address: string;
+  mapLabel: string;
+}
+
+export const OFFICES: Office[] = [
+  {
+    city: "Agra",
+    address:
+      "Shop No. 10, Block-C25, IInd Floor, Cloth Market, Near Corporate Park, Sanjay Palace, Agra – 282002",
+    mapLabel: "Sanjay Palace, Agra",
+  },
+  {
+    city: "Noida",
+    address: "Sunworld Vanalika, Sector 107, Noida, UP",
+    mapLabel: "Sector 107, Noida",
+  },
+];
+
 export const STATS = [
-  { value: "1,500+", label: "Valuations Delivered" },
+  { value: "3,000+", label: "Valuations Delivered" },
   { value: "7+", label: "Years of Experience" },
   { value: "8", label: "Banks Empanelled" },
-  { value: "Agra", label: "& Surrounding Region" },
+  { value: "Agra · Noida", label: "Office Locations" },
 ];
 
 export const TOOLS = ["AutoCAD", "GIS Mapping", "PropTiger", "99acres", "RERA Databases", "Excel Valuation Models"];

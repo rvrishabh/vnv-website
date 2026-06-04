@@ -56,7 +56,7 @@ export function Home() {
         <Container className="relative">
           <div className="max-w-3xl py-24 md:py-32">
             <div className="hero-up" style={{ animationDelay: "60ms" }}>
-              <Eyebrow tone="light">IBBI Registered Valuer · Agra, India</Eyebrow>
+              <Eyebrow tone="light">IBBI Registered Valuer · Agra & Noida</Eyebrow>
             </div>
 
             <h1
@@ -80,7 +80,7 @@ export function Home() {
               className="hero-up mt-8 flex flex-wrap items-center gap-x-7 gap-y-3"
               style={{ animationDelay: "340ms" }}
             >
-              {["IBBI Registered Valuer", "7+ Years of Experience", "1,500+ Valuations Delivered"].map((t, i) => (
+              {["IBBI Registered Valuer", "7+ Years of Experience", "3,000+ Valuations Delivered"].map((t, i) => (
                 <div key={t} className="flex items-center gap-2.5">
                   {i > 0 && <span className="h-3.5 w-px bg-white/20 -ml-4 mr-1 hidden sm:block" />}
                   <BadgeCheck size={17} strokeWidth={1.75} className="text-gold" />
