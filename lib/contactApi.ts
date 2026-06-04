@@ -19,7 +19,7 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
     );
   }
 
-  const subject = `Website enquiry — ${payload.name}`;
+  const subject = `${payload.name} sent a message from website`;
 
   const res = await fetch(WEB3FORMS_URL, {
     method: "POST",
