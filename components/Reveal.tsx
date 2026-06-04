@@ -1,44 +1,48 @@
-import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 import type { ReactNode } from "react";
+import { fadeUp, fadeUpSubtle, fadeIn, scaleIn, transition, viewport } from "../lib/motion";
 
-interface RevealProps {
+type RevealVariant = "up" | "subtle" | "fade" | "scale";
+
+const variants = {
+  up: fadeUp,
+  subtle: fadeUpSubtle,
+  fade: fadeIn,
+  scale: scaleIn,
+} as const;
+
+type MotionTag = keyof typeof motion;
+
+interface RevealProps extends Omit<HTMLMotionProps<"div">, "children" | "initial" | "animate"> {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "section" | "li" | "article";
+  as?: MotionTag;
+  variant?: RevealVariant;
 }
 
-export function Reveal({ children, delay = 0, className = "", as = "div" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const Tag = as as "div";
+export function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  as = "div",
+  variant = "up",
+  ...rest
+}: RevealProps) {
+  const reduceMotion = useReducedMotion();
+  const Component = motion[as] as typeof motion.div;
 
   return (
-    <Tag
-      ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <Component
+      initial={reduceMotion ? false : "hidden"}
+      whileInView={reduceMotion ? undefined : "visible"}
+      viewport={viewport}
+      variants={variants[variant]}
+      transition={{ ...transition, delay: delay / 1000 }}
+      className={className}
+      {...rest}
     >
       {children}
-    </Tag>
+    </Component>
   );
 }

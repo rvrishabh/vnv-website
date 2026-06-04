@@ -2,6 +2,8 @@ import { Building2, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Container, Button, Eyebrow } from "../components/ui";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
+import { Stagger, StaggerItem } from "../components/Stagger";
+import { MotionCard } from "../components/MotionCard";
 import { Seal } from "../components/Seal";
 import { BankLogo } from "../components/BankLogo";
 import { BANKS, CATEGORY_ORDER } from "../data";
@@ -65,9 +67,10 @@ export function EmpanelledBanks() {
                   </div>
                 </Reveal>
 
-                <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {banks.map((b, i) => (
-                    <Reveal key={b.short} delay={(i % 3) * 80}>
+                <Stagger className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {banks.map((b) => (
+                    <StaggerItem key={b.short}>
+                      <MotionCard className="h-full">
                       <article className="group h-full bg-white border border-steel rounded-sm p-7 transition-colors duration-300 hover:border-gold">
                         <div className="flex items-center justify-between">
                           <div className="h-16 w-[88px] grid place-items-center border border-navy/15 rounded-sm bg-white px-2 group-hover:border-gold transition-colors duration-300">
@@ -83,9 +86,10 @@ export function EmpanelledBanks() {
                           <span className="font-mono text-[11px] uppercase tracking-[0.14em]">Empanelled · Active</span>
                         </div>
                       </article>
-                    </Reveal>
+                      </MotionCard>
+                    </StaggerItem>
                   ))}
-                </div>
+                </Stagger>
               </div>
             );
           })}

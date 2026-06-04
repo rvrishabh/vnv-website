@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Landmark,
   Building2,
@@ -12,9 +13,12 @@ import {
 import { Container, Button, Eyebrow, CredChip } from "../components/ui";
 import { Seal } from "../components/Seal";
 import { Reveal } from "../components/Reveal";
+import { Stagger, StaggerItem } from "../components/Stagger";
+import { MotionCard } from "../components/MotionCard";
 import { BankLogo } from "../components/BankLogo";
 import { ServiceImage } from "../components/ServiceImage";
 import { BANKS, SERVICES, STATS } from "../data";
+import { ease, heroItem, heroStagger } from "../lib/motion";
 
 const ICONS: Record<string, typeof Landmark> = {
   Landmark,
@@ -39,6 +43,8 @@ function Skyline({ className = "" }: { className?: string }) {
 }
 
 export function Home() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <>
       {/* ============ HERO ============ */}
@@ -48,37 +54,45 @@ export function Home() {
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(115% 80% at 78% 8%, rgba(21,48,95,0.85), transparent 60%)" }}
         />
-        {/* seal watermark */}
-        <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 hidden xl:block opacity-90 pointer-events-none">
+        <motion.div
+          className="absolute right-[-60px] top-1/2 -translate-y-1/2 hidden xl:block opacity-90 pointer-events-none"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
+          animate={reduceMotion ? undefined : { opacity: 0.9, scale: 1 }}
+          transition={{ duration: 1.1, ease, delay: 0.15 }}
+        >
           <Seal size={420} variant="watermark" />
-        </div>
+        </motion.div>
 
         <Container className="relative">
-          <div className="max-w-3xl py-24 md:py-32">
-            <div className="hero-up" style={{ animationDelay: "60ms" }}>
+          <motion.div
+            className="max-w-3xl py-24 md:py-32"
+            variants={reduceMotion ? undefined : heroStagger}
+            initial={reduceMotion ? false : "hidden"}
+            animate={reduceMotion ? undefined : "visible"}
+          >
+            <motion.div variants={reduceMotion ? undefined : heroItem}>
               <Eyebrow tone="light">IBBI Registered Valuer · Agra & Noida</Eyebrow>
-            </div>
+            </motion.div>
 
-            <h1
-              className="hero-up font-display font-semibold tracking-tightish leading-[1.06] mt-7 text-[40px] md:text-[58px]"
-              style={{ animationDelay: "160ms" }}
+            <motion.h1
+              variants={reduceMotion ? undefined : heroItem}
+              className="font-display font-semibold tracking-tightish leading-[1.06] mt-7 text-[40px] md:text-[58px]"
             >
               India's Trusted Property Valuation Partner for{" "}
               <span className="text-gold italic">Banks & Financial Institutions</span>
-            </h1>
+            </motion.h1>
 
-            <p
-              className="hero-up mt-7 text-[16px] md:text-[18px] leading-relaxed text-white/70 max-w-2xl"
-              style={{ animationDelay: "260ms" }}
+            <motion.p
+              variants={reduceMotion ? undefined : heroItem}
+              className="mt-7 text-[16px] md:text-[18px] leading-relaxed text-white/70 max-w-2xl"
             >
               Accurate, unbiased, and defensible valuation reports for secured lending — prepared by an
               IBBI Registered Valuer with over seven years of institutional and independent practice.
-            </p>
+            </motion.p>
 
-            {/* credential strip */}
-            <div
-              className="hero-up mt-8 flex flex-wrap items-center gap-x-7 gap-y-3"
-              style={{ animationDelay: "340ms" }}
+            <motion.div
+              variants={reduceMotion ? undefined : heroItem}
+              className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3"
             >
               {["IBBI Registered Valuer", "7+ Years of Experience", "3,000+ Valuations Delivered"].map((t, i) => (
                 <div key={t} className="flex items-center gap-2.5">
@@ -87,9 +101,12 @@ export function Home() {
                   <span className="font-mono text-[12px] tracking-wide text-white/80">{t}</span>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="hero-up mt-10 flex flex-col sm:flex-row gap-4" style={{ animationDelay: "440ms" }}>
+            <motion.div
+              variants={reduceMotion ? undefined : heroItem}
+              className="mt-10 flex flex-col sm:flex-row gap-4"
+            >
               <Button to="/contact" variant="gold">
                 Request a Valuation
                 <ArrowRight size={17} strokeWidth={2} />
@@ -97,11 +114,18 @@ export function Home() {
               <Button to="/empanelled-banks" variant="outline-light">
                 View Empanelments
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </Container>
 
-        <Skyline className="relative w-full h-[90px] md:h-[120px]" />
+        <motion.div
+          className="relative w-full"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.5 }}
+        >
+          <Skyline className="w-full h-[90px] md:h-[120px]" />
+        </motion.div>
       </section>
 
       {/* ============ TRUST BAR ============ */}
@@ -144,11 +168,12 @@ export function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SERVICES.map((s, i) => {
+          <Stagger className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SERVICES.map((s) => {
               const Icon = ICONS[s.icon];
               return (
-                <Reveal key={s.title} delay={(i % 3) * 90}>
+                <StaggerItem key={s.title}>
+                  <MotionCard className="h-full">
                   <article className="group h-full bg-white border border-steel rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold">
                     <div className="relative aspect-[16/10] overflow-hidden border-b border-steel">
                       <ServiceImage
@@ -166,10 +191,11 @@ export function Home() {
                     <p className="mt-4 text-[14px] leading-relaxed text-ink-soft">{s.blurb}</p>
                     </div>
                   </article>
-                </Reveal>
+                  </MotionCard>
+                </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
 
           <Reveal delay={120}>
             <div className="mt-12 flex justify-center">
@@ -205,12 +231,12 @@ export function Home() {
                 <CredChip label="Member" value="IOV · IEI · RVF" />
               </div>
             </div>
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <Reveal variant="scale" className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative">
                 <div className="absolute inset-0 rounded-full" style={{ boxShadow: "0 0 80px rgba(201,168,76,0.18)" }} />
                 <Seal size={240} variant="badge" className="relative" />
               </div>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>
@@ -218,18 +244,18 @@ export function Home() {
       {/* ============ STATS ============ */}
       <section className="bg-paper border-b border-steel">
         <Container className="py-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-steel">
-            {STATS.map((s, i) => (
-              <Reveal key={s.label} delay={i * 80}>
+          <Stagger className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-steel">
+            {STATS.map((s) => (
+              <StaggerItem key={s.label}>
                 <div className="px-6 py-6 lg:py-2 text-center">
                   <div className="font-display font-semibold text-gold-deep text-[38px] md:text-[46px] leading-none tracking-tightish">
                     {s.value}
                   </div>
                   <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">{s.label}</div>
                 </div>
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </Container>
       </section>
 

@@ -10,7 +10,9 @@ import {
 } from "lucide-react";
 import { Container, Button, Eyebrow } from "../components/ui";
 import { PageHeader } from "../components/PageHeader";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "../components/Reveal";
+import { transition } from "../lib/motion";
 import { ServiceImage } from "../components/ServiceImage";
 import { SERVICES } from "../data";
 
@@ -24,6 +26,8 @@ const ICONS: Record<string, typeof Landmark> = {
 };
 
 export function Services() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <>
       <PageHeader
@@ -43,7 +47,13 @@ export function Services() {
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                     {/* Visual panel */}
                     <div className={`${flip ? "lg:order-2" : ""}`}>
-                      <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-navy/20">
+                      <motion.div
+                        className="relative aspect-[4/3] rounded-sm overflow-hidden border border-navy/20"
+                        initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+                        whileInView={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+                        viewport={{ once: true, amount: 0.25 }}
+                        transition={transition}
+                      >
                         <ServiceImage service={s} className="absolute inset-0 h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-tr from-navy-deep/80 via-navy-deep/35 to-navy-deep/10" />
                         <div className="absolute inset-0 blueprint-grid opacity-40 pointer-events-none" />
@@ -58,7 +68,7 @@ export function Services() {
                             V.N.V Engineers
                           </span>
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
 
                     {/* Text */}

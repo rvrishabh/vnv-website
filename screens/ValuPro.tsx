@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { Container, Button, Eyebrow } from "../components/ui";
 import { Reveal } from "../components/Reveal";
+import { Stagger, StaggerItem } from "../components/Stagger";
+import { MotionCard } from "../components/MotionCard";
 
 const HIGHLIGHTS = [
   {
@@ -173,11 +175,12 @@ export function ValuPro() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid lg:grid-cols-3 gap-6">
-            {HIGHLIGHTS.map((h, i) => {
+          <Stagger className="mt-14 grid lg:grid-cols-3 gap-6">
+            {HIGHLIGHTS.map((h) => {
               const Icon = h.icon;
               return (
-                <Reveal key={h.name} delay={i * 90}>
+                <StaggerItem key={h.name}>
+                  <MotionCard className="h-full">
                   <div className="h-full border border-white/10 rounded-sm p-8 bg-white/[0.02] hover:border-gold/50 transition-colors duration-300">
                     <div className="h-12 w-12 grid place-items-center border border-gold/40 rounded-sm">
                       <Icon size={22} strokeWidth={1.6} className="text-gold" />
@@ -186,10 +189,11 @@ export function ValuPro() {
                     <div className="mt-3 h-px w-8 bg-gold" />
                     <p className="mt-4 text-[14px] leading-relaxed text-white/60">{h.desc}</p>
                   </div>
-                </Reveal>
+                  </MotionCard>
+                </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
         </Container>
       </section>
 

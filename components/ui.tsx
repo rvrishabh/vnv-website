@@ -1,5 +1,9 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
+import { ease } from "../lib/motion";
+
+const MotionLink = motion.create(Link);
 
 /* ---------- Container ---------- */
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -26,20 +30,29 @@ const buttonStyles: Record<ButtonVariant, string> = {
 };
 
 export function Button({ children, to, variant = "gold", className = "", onClick, type = "button" }: ButtonProps) {
+  const reduceMotion = useReducedMotion();
   const base =
     "inline-flex items-center justify-center gap-2 rounded-sm px-7 py-3.5 text-[14px] tracking-wide transition-colors duration-200 select-none";
   const cls = `${base} ${buttonStyles[variant]} ${className}`;
+  const motionProps = reduceMotion
+    ? {}
+    : {
+        whileHover: { y: -2 },
+        whileTap: { scale: 0.98 },
+        transition: { duration: 0.22, ease },
+      };
+
   if (to) {
     return (
-      <Link to={to} className={cls} onClick={onClick}>
+      <MotionLink to={to} className={cls} onClick={onClick} {...motionProps}>
         {children}
-      </Link>
+      </MotionLink>
     );
   }
   return (
-    <button type={type} onClick={onClick} className={cls}>
+    <motion.button type={type} onClick={onClick} className={cls} {...motionProps}>
       {children}
-    </button>
+    </motion.button>
   );
 }
 

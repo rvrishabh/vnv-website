@@ -10,7 +10,9 @@ import {
   Timer,
 } from "lucide-react";
 import type { FormEvent } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import { scaleIn, transition } from "../lib/motion";
 import { PageHeader } from "../components/PageHeader";
 import { Seal } from "../components/Seal";
 import { Container, Eyebrow } from "../components/ui";
@@ -41,6 +43,7 @@ const EMPTY_FORM = {
 };
 
 export function Contact() {
+  const reduceMotion = useReducedMotion();
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,15 +89,29 @@ export function Contact() {
                 Request a valuation or empanelment
               </h2>
 
+              <AnimatePresence mode="wait">
               {sent ? (
-                <div className="mt-8 border border-gold/40 bg-white rounded-sm p-10 text-center">
-                  <div className="mx-auto h-14 w-14 grid place-items-center border border-gold rounded-full">
+                <motion.div
+                  key="success"
+                  className="mt-8 border border-gold/40 bg-white rounded-sm p-10 text-center"
+                  initial={reduceMotion ? false : "hidden"}
+                  animate={reduceMotion ? undefined : "visible"}
+                  exit={reduceMotion ? undefined : "hidden"}
+                  variants={scaleIn}
+                  transition={transition}
+                >
+                  <motion.div
+                    className="mx-auto h-14 w-14 grid place-items-center border border-gold rounded-full"
+                    initial={reduceMotion ? false : { scale: 0 }}
+                    animate={reduceMotion ? undefined : { scale: 1 }}
+                    transition={{ ...transition, delay: 0.12 }}
+                  >
                     <CheckCircle2
                       size={28}
                       strokeWidth={1.75}
                       className="text-gold-deep"
                     />
-                  </div>
+                  </motion.div>
                   <h3 className="mt-5 font-display text-[24px] text-navy">
                     Enquiry received
                   </h3>
@@ -113,9 +130,17 @@ export function Contact() {
                   >
                     Submit another
                   </button>
-                </div>
+                </motion.div>
               ) : (
-                <form onSubmit={onSubmit} className="mt-8 space-y-5">
+                <motion.form
+                  key="form"
+                  onSubmit={onSubmit}
+                  className="mt-8 space-y-5"
+                  initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                  animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                  transition={transition}
+                >
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label className={LABEL}>Name</label>
@@ -231,8 +256,9 @@ export function Contact() {
                       </>
                     )}
                   </button>
-                </form>
+                </motion.form>
               )}
+              </AnimatePresence>
             </div>
 
             {/* Info panel */}
