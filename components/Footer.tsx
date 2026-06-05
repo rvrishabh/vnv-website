@@ -99,7 +99,7 @@ export function Footer() {
 
         {/* Credential strip */}
         <div className="gold-rule opacity-50" />
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-6">
+        <div className="flex flex-col gap-4 py-6">
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             {CREDENTIALS.map((c) => (
               <span key={c} className="font-mono text-[11px] tracking-wide text-white/55">
@@ -107,9 +107,37 @@ export function Footer() {
               </span>
             ))}
           </div>
-          <p className="font-mono text-[11px] tracking-wide text-white/45">
-            © 2025 V.N.V Engineers. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 font-sans text-[12px] text-white/50">
+              <a
+                href="https://www.ibbi.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                IBBI
+              </a>
+              <a
+                href="https://www.institutionofvaluers.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Institution of Valuers
+              </a>
+              <a
+                href="https://www.ieindia.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Institution of Engineers (India)
+              </a>
+            </div>
+            <p className="font-mono text-[11px] tracking-wide text-white/45">
+              © 2025 V.N.V Engineers. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

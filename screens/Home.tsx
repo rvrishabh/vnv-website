@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Landmark,
@@ -114,6 +115,9 @@ export function Home() {
               <Button to="/empanelled-banks" variant="outline-light">
                 View Empanelments
               </Button>
+              <Button to="/about" variant="outline-light">
+                About the Valuer
+              </Button>
             </motion.div>
           </motion.div>
         </Container>
@@ -186,7 +190,11 @@ export function Home() {
                       </div>
                     </div>
                     <div className="p-7">
-                    <h3 className="font-display text-[20px] font-medium text-navy leading-snug">{s.title}</h3>
+                    <h3 className="font-display text-[20px] font-medium text-navy leading-snug">
+                      <Link to="/services" className="hover:text-gold-deep transition-colors">
+                        {s.title}
+                      </Link>
+                    </h3>
                     <div className="mt-3 h-px w-8 bg-gold transition-all duration-300 group-hover:w-14" />
                     <p className="mt-4 text-[14px] leading-relaxed text-ink-soft">{s.blurb}</p>
                     </div>
@@ -220,7 +228,11 @@ export function Home() {
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-white/65 max-w-xl">
                 Er. Shivam Verma is an IBBI Registered Valuer (Land &amp; Building) and a member of IOV, IOV RVF,
-                and the Institution of Engineers (India) — credentials a bank can verify on record.
+                and the Institution of Engineers (India) — credentials a bank can verify on record.{" "}
+                <Link to="/about" className="text-gold-soft underline underline-offset-2 hover:text-gold">
+                  Read the full profile
+                </Link>
+                .
               </p>
               <div className="mt-9 grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-2xl">
                 <CredChip label="IBBI Reg. No." value="02/2023/15442" />
