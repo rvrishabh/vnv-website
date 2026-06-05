@@ -106,6 +106,7 @@ For client-side routing, configure a rewrite so all paths serve `index.html` (Ve
 ├── screens/          # Page-level views
 ├── lib/              # contactApi (Web3Forms integration)
 ├── public/
+│   ├── logos/vnv/         # logo-full.png, favicon.png, apple-touch-icon.png
 │   ├── images/services/   # Service card images
 │   └── logos/banks/       # Empanelled bank logos
 ├── data.ts           # Banks, services, stats content

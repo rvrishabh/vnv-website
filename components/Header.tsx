@@ -1,10 +1,10 @@
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { drawer, ease, transitionFast } from "../lib/motion";
 import { Logo } from "./Logo";
 import { Button } from "./ui";
-import { drawer, ease, transitionFast } from "../lib/motion";
 
 const NAV = [
   { label: "Home", to: "/" },
@@ -39,18 +39,26 @@ export function Header() {
       className="sticky top-0 z-50 bg-navy-deep border-b"
       initial={false}
       animate={{
-        borderColor: scrolled ? "rgba(201,168,76,0.35)" : "rgba(255,255,255,0.08)",
-        boxShadow: scrolled ? "0 6px 28px rgba(6,21,51,0.45)" : "0 0 0 rgba(0,0,0,0)",
+        borderColor: scrolled
+          ? "rgba(201,168,76,0.35)"
+          : "rgba(255,255,255,0.08)",
+        boxShadow: scrolled
+          ? "0 6px 28px rgba(6,21,51,0.45)"
+          : "0 0 0 rgba(0,0,0,0)",
       }}
       transition={transitionFast}
     >
       <div
         className="h-[2px] w-full"
-        style={{ background: "linear-gradient(90deg, var(--gold-deep), var(--gold), var(--gold-deep))" }}
+        style={{
+          background:
+            "linear-gradient(90deg, var(--gold-deep), var(--gold), var(--gold-deep))",
+        }}
       />
       <div className="mx-auto w-full max-w-container px-6 md:px-10">
         <div className="flex h-[74px] items-center justify-between gap-4">
-          <Logo variant="light" />
+          <Logo variant="light" className="hidden sm:inline-flex" />
+          <Logo variant="light" markOnly className="sm:hidden" />
 
           <nav className="hidden lg:flex items-center gap-7">
             {NAV.map((item) => (
@@ -80,7 +88,11 @@ export function Header() {
           </nav>
 
           <div className="hidden lg:block">
-            <Button to="/contact" variant="gold" className="!px-5 !py-2.5 !text-[13px]">
+            <Button
+              to="/contact"
+              variant="gold"
+              className="!px-5 !py-2.5 !text-[13px]"
+            >
               <Phone size={15} strokeWidth={2} />
               Get a Valuation
             </Button>
@@ -92,7 +104,11 @@ export function Header() {
             aria-expanded={open}
             aria-label="Toggle menu"
           >
-            {open ? <X size={24} strokeWidth={1.75} /> : <Menu size={24} strokeWidth={1.75} />}
+            {open ? (
+              <X size={24} strokeWidth={1.75} />
+            ) : (
+              <Menu size={24} strokeWidth={1.75} />
+            )}
           </button>
         </div>
       </div>
@@ -134,7 +150,12 @@ export function Header() {
                 animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 transition={{ delay: 0.28, duration: 0.35, ease }}
               >
-                <Button to="/contact" variant="gold" className="w-full" onClick={() => setOpen(false)}>
+                <Button
+                  to="/contact"
+                  variant="gold"
+                  className="w-full"
+                  onClick={() => setOpen(false)}
+                >
                   <Phone size={16} strokeWidth={2} />
                   Get a Valuation
                 </Button>
