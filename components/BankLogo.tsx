@@ -4,6 +4,7 @@ const LOGO_FILES: Record<Bank["short"], string> = {
   PNB: "pnb.svg",
   IB: "ib.jpg",
   CB: "cb.svg",
+  CUB: "cub.png",
   AU: "au.png",
   CBHF: "cbhf.jpg",
   GHF: "ghf.svg",

@@ -10,6 +10,7 @@ import { BANKS, CATEGORY_ORDER } from "../data";
 
 const CATEGORY_META: Record<string, { tag: string; note: string }> = {
   "Public Sector": { tag: "Public Sector Bank", note: "Government-owned scheduled commercial banks" },
+  "Private Sector": { tag: "Private Sector Bank", note: "Privately owned scheduled commercial banks" },
   "Small Finance Bank": { tag: "Small Finance Bank", note: "RBI-licensed small finance institutions" },
   "Housing Finance": { tag: "Housing Finance Co.", note: "Specialised housing finance lenders" },
 };
@@ -20,7 +21,7 @@ export function EmpanelledBanks() {
       <PageHeader
         eyebrow="Empanelment · The Credibility That Matters"
         title={<>Banks &amp; Financial Institutions We Serve</>}
-        subtitle="V.N.V Engineers is empanelled with leading public sector banks, small finance banks, and housing finance companies across India."
+        subtitle="V.N.V Engineers is empanelled with leading public sector banks, private sector banks, small finance banks, and housing finance companies across India."
       />
 
       {/* Trust ribbon */}
@@ -30,7 +31,7 @@ export function EmpanelledBanks() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-x-10 gap-y-3 text-center">
             <div className="flex items-center gap-3">
               <ShieldCheck size={18} strokeWidth={1.75} className="text-gold" />
-              <span className="font-mono text-[12px] tracking-wide text-white/85">8 Institutions Empanelled</span>
+              <span className="font-mono text-[12px] tracking-wide text-white/85">{BANKS.length} Institutions Empanelled</span>
             </div>
             <span className="hidden sm:block h-4 w-px bg-white/20" />
             <div className="flex items-center gap-3">

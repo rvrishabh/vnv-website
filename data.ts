@@ -1,13 +1,14 @@
 export interface Bank {
   name: string;
   short: string;
-  category: "Public Sector" | "Small Finance Bank" | "Housing Finance";
+  category: "Public Sector" | "Private Sector" | "Small Finance Bank" | "Housing Finance";
 }
 
 export const BANKS: Bank[] = [
   { name: "Punjab National Bank", short: "PNB", category: "Public Sector" },
   { name: "Indian Bank", short: "IB", category: "Public Sector" },
   { name: "Canara Bank", short: "CB", category: "Public Sector" },
+  { name: "City Union Bank Limited", short: "CUB", category: "Private Sector" },
   { name: "AU Small Finance Bank", short: "AU", category: "Small Finance Bank" },
   { name: "Cent Bank Home Finance Limited", short: "CBHF", category: "Housing Finance" },
   { name: "Grihum Housing Finance Limited", short: "GHF", category: "Housing Finance" },
@@ -15,7 +16,7 @@ export const BANKS: Bank[] = [
   { name: "Wonder Home Finance Limited", short: "WHF", category: "Housing Finance" },
 ];
 
-export const CATEGORY_ORDER = ["Public Sector", "Small Finance Bank", "Housing Finance"] as const;
+export const CATEGORY_ORDER = ["Public Sector", "Private Sector", "Small Finance Bank", "Housing Finance"] as const;
 
 export interface ServiceItem {
   icon: string; // lucide name resolved in component
@@ -106,7 +107,7 @@ export const OFFICES: Office[] = [
 export const STATS = [
   { value: "3,000+", label: "Valuations Delivered" },
   { value: "7+", label: "Years of Experience" },
-  { value: "8", label: "Banks Empanelled" },
+  { value: String(BANKS.length), label: "Banks Empanelled" },
   { value: "Agra · Noida", label: "Office Locations" },
 ];
 

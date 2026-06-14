@@ -40,7 +40,7 @@ export const PAGE_SEO: Record<string, PageSeo> = {
     path: "/empanelled-banks",
     title: `Empanelled Banks | ${SITE_NAME}`,
     description:
-      "V.N.V Engineers is empanelled with leading public sector banks, small finance banks, and housing finance companies across India.",
+      "V.N.V Engineers is empanelled with leading public sector banks, private sector banks, small finance banks, and housing finance companies across India.",
   },
   "/valupro": {
     path: "/valupro",

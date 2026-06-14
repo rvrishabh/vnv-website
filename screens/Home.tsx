@@ -138,7 +138,7 @@ export function Home() {
           <div className="flex flex-col lg:flex-row lg:items-center gap-7">
             <div className="shrink-0 lg:w-44">
               <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-gold-deep">Empanelled With</div>
-              <div className="mt-1 font-display text-[19px] text-navy">8 Institutions</div>
+              <div className="mt-1 font-display text-[19px] text-navy">{BANKS.length} Institutions</div>
             </div>
             <div className="hidden lg:block w-px self-stretch bg-steel" />
             <div className="flex-1 flex flex-wrap items-center gap-x-8 gap-y-5">
