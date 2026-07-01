@@ -10,6 +10,7 @@ import { BANKS, CATEGORY_ORDER } from "../data";
 
 const CATEGORY_META: Record<string, { tag: string; note: string }> = {
   "Public Sector": { tag: "Public Sector Bank", note: "Government-owned scheduled commercial banks" },
+  "Regional Rural Bank": { tag: "Regional Rural Bank", note: "RBI-regulated regional rural banks serving rural India" },
   "Private Sector": { tag: "Private Sector Bank", note: "Privately owned scheduled commercial banks" },
   "Small Finance Bank": { tag: "Small Finance Bank", note: "RBI-licensed small finance institutions" },
   "Housing Finance": { tag: "Housing Finance Co.", note: "Specialised housing finance lenders" },
