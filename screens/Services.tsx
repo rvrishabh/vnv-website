@@ -8,6 +8,7 @@ import { transition } from "../lib/motion";
 import { ServiceImage } from "../components/ServiceImage";
 import { SERVICES } from "../data";
 import { SERVICE_ICONS } from "../components/serviceIcons";
+import { ParallaxImage, Tilt } from "../components/ScrollMotion";
 
 export function Services() {
   const reduceMotion = useReducedMotion();
@@ -30,7 +31,7 @@ export function Services() {
                 <Reveal key={s.title}>
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                     {/* Visual panel */}
-                    <div className={`${flip ? "lg:order-2" : ""}`}>
+                    <Tilt className={`rounded-sm ${flip ? "lg:order-2" : ""}`} max={5}>
                       <motion.div
                         className="relative aspect-[4/3] rounded-sm overflow-hidden border border-navy/20"
                         initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
@@ -38,7 +39,9 @@ export function Services() {
                         viewport={{ once: true, amount: 0.25 }}
                         transition={transition}
                       >
-                        <ServiceImage service={s} className="absolute inset-0 h-full w-full object-cover" />
+                        <ParallaxImage>
+                          <ServiceImage service={s} className="h-full w-full object-cover" />
+                        </ParallaxImage>
                         <div className="absolute inset-0 bg-gradient-to-tr from-navy-deep/80 via-navy-deep/35 to-navy-deep/10" />
                         <div className="absolute inset-0 blueprint-grid opacity-40 pointer-events-none" />
                         <span className="absolute top-6 left-6 font-display text-[80px] md:text-[110px] font-semibold leading-none text-white/[0.12]">
@@ -53,7 +56,7 @@ export function Services() {
                           </span>
                         </div>
                       </motion.div>
-                    </div>
+                    </Tilt>
 
                     {/* Text */}
                     <div className={`${flip ? "lg:order-1" : ""}`}>

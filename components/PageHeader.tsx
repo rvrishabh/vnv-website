@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Container, Eyebrow } from "./ui";
 import { Seal } from "./Seal";
 import { heroStagger, heroItem, ease } from "../lib/motion";
+import { useHeroScroll } from "./ScrollMotion";
 
 interface PageHeaderProps {
   eyebrow: string;
@@ -12,23 +13,39 @@ interface PageHeaderProps {
 
 export function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
   const reduceMotion = useReducedMotion();
+  const hero = useHeroScroll();
 
   return (
-    <section className="relative bg-navy-deep text-white overflow-hidden">
-      <div className="absolute inset-0 blueprint-grid pointer-events-none" />
+    <section ref={hero.ref} className="relative bg-navy-deep text-white overflow-hidden">
+      <motion.div
+        className="absolute inset-0 blueprint-grid pointer-events-none"
+        style={reduceMotion ? undefined : { y: hero.backdropY }}
+      />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(120% 90% at 85% 0%, rgba(21,48,95,0.7), transparent 60%)" }}
       />
       <motion.div
-        className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden lg:block opacity-70 pointer-events-none"
-        initial={reduceMotion ? false : { opacity: 0, rotate: -8 }}
-        animate={reduceMotion ? undefined : { opacity: 0.7, rotate: 0 }}
-        transition={{ duration: 1.2, ease, delay: 0.2 }}
+        className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none"
+        style={reduceMotion ? undefined : { y: hero.sealY, rotate: hero.sealRotate }}
       >
-        <Seal size={300} variant="watermark" />
+        <motion.div
+          className="opacity-70"
+          initial={reduceMotion ? false : { opacity: 0, rotate: -8 }}
+          animate={reduceMotion ? undefined : { opacity: 0.7, rotate: 0 }}
+          transition={{ duration: 1.2, ease, delay: 0.2 }}
+        >
+          <Seal size={300} variant="watermark" />
+        </motion.div>
       </motion.div>
       <Container className="relative">
+        <motion.div
+          style={
+            reduceMotion
+              ? undefined
+              : { y: hero.y, opacity: hero.opacity, rotateX: hero.rotateX, transformPerspective: 1200, transformOrigin: "50% 0%" }
+          }
+        >
         <motion.div
           className="max-w-3xl py-16 md:py-24"
           variants={reduceMotion ? undefined : heroStagger}
@@ -52,6 +69,7 @@ export function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
               {subtitle}
             </motion.p>
           )}
+        </motion.div>
         </motion.div>
       </Container>
       <motion.div

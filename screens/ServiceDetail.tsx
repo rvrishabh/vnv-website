@@ -7,6 +7,7 @@ import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { ServiceImage } from "../components/ServiceImage";
 import { SERVICE_ICONS } from "../components/serviceIcons";
+import { ParallaxImage, Tilt } from "../components/ScrollMotion";
 import { Container, Eyebrow } from "../components/ui";
 import { BANKS, CITY_PAGES, FIRM, SERVICES, getServiceBySlug } from "../data";
 import { NotFound } from "./NotFound";
@@ -37,13 +38,17 @@ export function ServiceDetail() {
         <Container className="py-20 md:py-24">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <Reveal>
+              <Tilt className="rounded-sm" max={5}>
               <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-navy/20">
-                <ServiceImage service={service} eager className="absolute inset-0 h-full w-full object-cover" />
+                <ParallaxImage>
+                  <ServiceImage service={service} eager className="h-full w-full object-cover" />
+                </ParallaxImage>
                 <div className="absolute inset-0 bg-gradient-to-tr from-navy-deep/70 via-navy-deep/20 to-transparent" />
                 <div className="absolute bottom-5 left-5 h-12 w-12 grid place-items-center border border-gold/50 rounded-sm bg-navy/50 backdrop-blur-sm">
                   <Icon size={22} strokeWidth={1.4} className="text-gold" />
                 </div>
               </div>
+              </Tilt>
             </Reveal>
             <Reveal>
               <Eyebrow>Overview</Eyebrow>
@@ -127,12 +132,14 @@ export function ServiceDetail() {
           </h2>
           <ol className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {PROCESS_STEPS.map((step, i) => (
-              <li key={step.title} className="border border-steel bg-white rounded-sm p-6">
+              <li key={step.title}>
+                <Tilt className="h-full border border-steel bg-white rounded-sm p-6 hover:border-gold transition-colors" max={6}>
                 <span className="font-mono text-[12px] tracking-[0.2em] text-gold-deep">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-3 font-display text-[18px] text-navy leading-snug">{step.title}</h3>
                 <p className="mt-2 text-[13.5px] leading-relaxed text-ink-soft">{step.text}</p>
+                </Tilt>
               </li>
             ))}
           </ol>

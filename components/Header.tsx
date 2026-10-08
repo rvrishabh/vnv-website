@@ -2,6 +2,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useLenis } from "lenis/react";
+import { ScrollProgress } from "./ScrollMotion";
 import { drawer, ease, transitionFast } from "../lib/motion";
 import { Logo } from "./Logo";
 import { Button } from "./ui";
@@ -20,6 +22,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const lenis = useLenis();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -30,10 +33,13 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) lenis?.stop();
+    else lenis?.start();
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
-  }, [open]);
+  }, [open, lenis]);
 
   return (
     <motion.header
@@ -118,6 +124,7 @@ export function Header() {
         {open && (
           <motion.div
             className="lg:hidden border-t border-white/10 bg-navy-deep overflow-hidden"
+            data-lenis-prevent
             variants={reduceMotion ? undefined : drawer}
             initial="hidden"
             animate="visible"
@@ -165,6 +172,7 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+      <ScrollProgress />
     </motion.header>
   );
 }

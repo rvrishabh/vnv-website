@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useLenis } from "lenis/react";
 import { Layout } from "./components/Layout";
 import { Seo } from "./components/Seo";
 import { Home } from "./screens/Home";
@@ -17,9 +18,11 @@ import { getPageSeo } from "./lib/seo";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
+  const lenis = useLenis();
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+    else window.scrollTo(0, 0);
+  }, [pathname, lenis]);
   return null;
 }
 

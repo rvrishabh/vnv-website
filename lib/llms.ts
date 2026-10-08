@@ -41,7 +41,7 @@ export function buildLlmsTxt(): string {
     "",
     "## Pages",
     "",
-    `- [About ${FIRM.valuer}](${absoluteUrl("/about")}): credentials, qualifications and career history`,
+    `- [About ${FIRM.valuer}](${absoluteUrl("/about")}): credentials and qualifications`,
     `- [Empanelled banks](${absoluteUrl("/empanelled-banks")}): banks and housing finance companies the firm is approved with`,
     `- [Property valuation FAQs](${absoluteUrl("/faq")}): answers on registered valuers, documents, methods and costs`,
     `- [VNV ValuPro](${absoluteUrl("/valupro")}): the firm's digital valuation workflow with GPS-verified site visits`,

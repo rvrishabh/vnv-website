@@ -20,6 +20,7 @@ import { BankLogo } from "../components/BankLogo";
 import { ServiceImage } from "../components/ServiceImage";
 import { BANKS, SERVICES, STATS } from "../data";
 import { ease, heroItem, heroStagger } from "../lib/motion";
+import { CountUp, useHeroScroll } from "../components/ScrollMotion";
 
 const ICONS: Record<string, typeof Landmark> = {
   Landmark,
@@ -45,26 +46,42 @@ function Skyline({ className = "" }: { className?: string }) {
 
 export function Home() {
   const reduceMotion = useReducedMotion();
+  const hero = useHeroScroll();
 
   return (
     <>
       {/* ============ HERO ============ */}
-      <section className="relative bg-navy-deep text-white overflow-hidden">
-        <div className="absolute inset-0 blueprint-grid pointer-events-none" />
+      <section ref={hero.ref} className="relative bg-navy-deep text-white overflow-hidden">
+        <motion.div
+          className="absolute inset-0 blueprint-grid pointer-events-none"
+          style={reduceMotion ? undefined : { y: hero.backdropY }}
+        />
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(115% 80% at 78% 8%, rgba(21,48,95,0.85), transparent 60%)" }}
         />
         <motion.div
-          className="absolute right-[-60px] top-1/2 -translate-y-1/2 hidden xl:block opacity-90 pointer-events-none"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
-          animate={reduceMotion ? undefined : { opacity: 0.9, scale: 1 }}
-          transition={{ duration: 1.1, ease, delay: 0.15 }}
+          className="absolute right-[-60px] top-1/2 -translate-y-1/2 hidden xl:block pointer-events-none"
+          style={reduceMotion ? undefined : { y: hero.sealY, rotate: hero.sealRotate }}
         >
-          <Seal size={420} variant="watermark" />
+          <motion.div
+            className="opacity-90"
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
+            animate={reduceMotion ? undefined : { opacity: 0.9, scale: 1 }}
+            transition={{ duration: 1.1, ease, delay: 0.15 }}
+          >
+            <Seal size={420} variant="watermark" />
+          </motion.div>
         </motion.div>
 
         <Container className="relative">
+          <motion.div
+            style={
+              reduceMotion
+                ? undefined
+                : { y: hero.y, opacity: hero.opacity, rotateX: hero.rotateX, transformPerspective: 1200, transformOrigin: "50% 0%" }
+            }
+          >
           <motion.div
             className="max-w-3xl py-24 md:py-32"
             variants={reduceMotion ? undefined : heroStagger}
@@ -119,6 +136,7 @@ export function Home() {
                 About the Valuer
               </Button>
             </motion.div>
+          </motion.div>
           </motion.div>
         </Container>
 
@@ -260,8 +278,8 @@ export function Home() {
             {STATS.map((s) => (
               <StaggerItem key={s.label}>
                 <div className="px-6 py-6 lg:py-2 text-center">
-                  <div className="font-display font-semibold text-gold-deep text-[38px] md:text-[46px] leading-none tracking-tightish">
-                    {s.value}
+                  <div className="font-display font-semibold text-gold-deep text-[38px] md:text-[46px] leading-none tracking-tightish tabular-nums">
+                    <CountUp value={s.value} />
                   </div>
                   <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">{s.label}</div>
                 </div>
