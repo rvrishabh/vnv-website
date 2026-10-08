@@ -33,7 +33,7 @@ Built as a static React SPA — deployable on **Vercel**, **AWS Amplify**, or an
 - **Per-page metadata & JSON-LD** — `lib/seo.ts` is the single registry of pages: title, description, canonical and schema.org graph (organisation, both offices, Er. Shivam Verma, services, FAQs, breadcrumbs). Add a page there and it is automatically prerendered and added to the sitemap.
 - **Generated at build** — `sitemap.xml` and `llms.txt` (an AI-readable brief of the firm, built from `data.ts`).
 - **Firm facts** — `FIRM` in `data.ts` (registration numbers, phone, email). Add Google Business Profile / LinkedIn / Justdial URLs to `FIRM.sameAs`.
-- **IndexNow** — after each production deploy run `npm run indexnow` to ping Bing (which also feeds ChatGPT search).
+- **IndexNow** — `.github/workflows/indexnow.yml` pings Bing (which also feeds ChatGPT search) automatically after every successful Vercel production deploy. Run `npm run indexnow` to do it by hand.
 
 ## Getting started
 
@@ -148,7 +148,7 @@ Fields included in each enquiry: name, organization, phone, email, property type
 |---------|-------------|
 | `npm run dev` | Start Vite dev server |
 | `npm run build` | Typecheck + production build + prerender |
-| `npm run indexnow` | Submit sitemap URLs to IndexNow (after deploy) |
+| `npm run indexnow` | Submit sitemap URLs to IndexNow (runs automatically via GitHub Actions) |
 | `npm run preview` | Serve `dist/` locally |
 
 ## License
