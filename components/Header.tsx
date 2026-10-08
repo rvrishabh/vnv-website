@@ -12,6 +12,7 @@ const NAV = [
   { label: "Services", to: "/services" },
   { label: "Empanelled Banks", to: "/empanelled-banks" },
   { label: "VNV ValuPro", to: "/valupro" },
+  { label: "FAQs", to: "/faq" },
   { label: "Contact", to: "/contact" },
 ];
 

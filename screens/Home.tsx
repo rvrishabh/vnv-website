@@ -191,7 +191,7 @@ export function Home() {
                     </div>
                     <div className="p-7">
                     <h3 className="font-display text-[20px] font-medium text-navy leading-snug">
-                      <Link to="/services" className="hover:text-gold-deep transition-colors">
+                      <Link to={`/services/${s.slug}`} className="hover:text-gold-deep transition-colors">
                         {s.title}
                       </Link>
                     </h3>

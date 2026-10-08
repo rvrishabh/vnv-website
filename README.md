@@ -22,7 +22,18 @@ Built as a static React SPA — deployable on **Vercel**, **AWS Amplify**, or an
 | `/services` | Valuation services with images |
 | `/empanelled-banks` | Banks and HFCs empanelled |
 | `/valupro` | ValuPro product |
+| `/faq` | Property valuation FAQs (FAQPage structured data) |
+| `/services/:slug` | One page per service — content in `data.ts` → `SERVICES` |
+| `/property-valuer-in-agra`, `/property-valuer-in-noida` | City landing pages — `data.ts` → `CITY_PAGES` |
 | `/contact` | Enquiry form and office details |
+
+## SEO & AI search (GEO)
+
+- **Prerendering** — `npm run build` renders every route to static HTML (`scripts/prerender.mjs`), so Google and AI crawlers that don't run JavaScript (ChatGPT, Claude, Perplexity) see the full content and the correct `<head>` for each URL. `vercel.json` (`cleanUrls`) serves `about.html` at `/about`.
+- **Per-page metadata & JSON-LD** — `lib/seo.ts` is the single registry of pages: title, description, canonical and schema.org graph (organisation, both offices, Er. Shivam Verma, services, FAQs, breadcrumbs). Add a page there and it is automatically prerendered and added to the sitemap.
+- **Generated at build** — `sitemap.xml` and `llms.txt` (an AI-readable brief of the firm, built from `data.ts`).
+- **Firm facts** — `FIRM` in `data.ts` (registration numbers, phone, email). Add Google Business Profile / LinkedIn / Justdial URLs to `FIRM.sameAs`.
+- **IndexNow** — after each production deploy run `npm run indexnow` to ping Bing (which also feeds ChatGPT search).
 
 ## Getting started
 
@@ -109,7 +120,9 @@ For client-side routing, configure a rewrite so all paths serve `index.html` (Ve
 │   ├── logos/vnv/         # logo-full.png, favicon.png, apple-touch-icon.png
 │   ├── images/services/   # Service card images
 │   └── logos/banks/       # Empanelled bank logos
-├── data.ts           # Banks, services, stats content
+├── data.ts           # Banks, services, cities, FAQs, firm facts
+├── entry-server.tsx  # SSR entry used only by the prerender step
+├── scripts/          # prerender.mjs, indexnow.mjs
 ├── routes.tsx        # React Router routes
 └── index.css         # Tailwind + brand tokens
 ```
@@ -134,7 +147,8 @@ Fields included in each enquiry: name, organization, phone, email, property type
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Start Vite dev server |
-| `npm run build` | Typecheck + production build |
+| `npm run build` | Typecheck + production build + prerender |
+| `npm run indexnow` | Submit sitemap URLs to IndexNow (after deploy) |
 | `npm run preview` | Serve `dist/` locally |
 
 ## License

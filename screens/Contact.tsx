@@ -18,6 +18,7 @@ import { Seal } from "../components/Seal";
 import { Container, Eyebrow } from "../components/ui";
 import { submitEnquiry } from "../lib/contactApi";
 import { OFFICES } from "../data";
+import { OfficeMap } from "../components/OfficeMap";
 
 const PROPERTY_TYPES = [
   "Residential",
@@ -351,47 +352,9 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className="mt-5 relative overflow-hidden rounded-sm border border-steel bg-white aspect-[16/10]">
-                <div className="absolute inset-0 blueprint-grid-light" />
-                {/* abstract street grid */}
-                <svg
-                  viewBox="0 0 400 250"
-                  className="absolute inset-0 w-full h-full"
-                  preserveAspectRatio="xMidYMid slice"
-                >
-                  <g
-                    stroke="var(--steel-deep)"
-                    strokeWidth="1.5"
-                    fill="none"
-                    opacity="0.7"
-                  >
-                    <path d="M-10 70 L410 50" />
-                    <path d="M-10 150 L410 175" />
-                    <path d="M70 -10 L50 260" />
-                    <path d="M200 -10 L215 260" />
-                    <path d="M320 -10 L310 260" />
-                  </g>
-                  <path
-                    d="M70 60 L210 165"
-                    stroke="var(--gold)"
-                    strokeWidth="2.5"
-                    fill="none"
-                    opacity="0.5"
-                    strokeDasharray="6 5"
-                  />
-                </svg>
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                  <div
-                    className="h-10 w-10 grid place-items-center rounded-full bg-navy"
-                    style={{ boxShadow: "0 8px 20px rgba(10,31,68,0.3)" }}
-                  >
-                    <MapPin size={20} strokeWidth={2} className="text-gold" />
-                  </div>
-                  <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-navy bg-white/90 px-2.5 py-1 rounded-sm border border-steel">
-                    Agra · Noida
-                  </span>
-                </div>
+              {/* Live map of the Agra office (the one with a Google Business Profile) */}
+              <div className="mt-5">
+                <OfficeMap office={OFFICES.find((o) => o.google) ?? OFFICES[0]} />
               </div>
             </div>
           </div>
