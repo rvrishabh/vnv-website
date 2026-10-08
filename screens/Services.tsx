@@ -1,13 +1,5 @@
-import {
-  Landmark,
-  Building2,
-  Scale,
-  Sprout,
-  LineChart,
-  ShieldCheck,
-  Check,
-  ArrowRight,
-} from "lucide-react";
+import { ShieldCheck, Check, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Container, Button, Eyebrow } from "../components/ui";
 import { PageHeader } from "../components/PageHeader";
 import { motion, useReducedMotion } from "framer-motion";
@@ -15,15 +7,8 @@ import { Reveal } from "../components/Reveal";
 import { transition } from "../lib/motion";
 import { ServiceImage } from "../components/ServiceImage";
 import { SERVICES } from "../data";
-
-const ICONS: Record<string, typeof Landmark> = {
-  Landmark,
-  Building2,
-  Scale,
-  Sprout,
-  LineChart,
-  ShieldCheck,
-};
+import { SERVICE_ICONS } from "../components/serviceIcons";
+import { ParallaxImage, Tilt } from "../components/ScrollMotion";
 
 export function Services() {
   const reduceMotion = useReducedMotion();
@@ -40,13 +25,13 @@ export function Services() {
         <Container className="py-20 md:py-28">
           <div className="space-y-20 md:space-y-28">
             {SERVICES.map((s, i) => {
-              const Icon = ICONS[s.icon];
+              const Icon = SERVICE_ICONS[s.icon];
               const flip = i % 2 === 1;
               return (
                 <Reveal key={s.title}>
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                     {/* Visual panel */}
-                    <div className={`${flip ? "lg:order-2" : ""}`}>
+                    <Tilt className={`rounded-sm ${flip ? "lg:order-2" : ""}`} max={5}>
                       <motion.div
                         className="relative aspect-[4/3] rounded-sm overflow-hidden border border-navy/20"
                         initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
@@ -54,7 +39,9 @@ export function Services() {
                         viewport={{ once: true, amount: 0.25 }}
                         transition={transition}
                       >
-                        <ServiceImage service={s} className="absolute inset-0 h-full w-full object-cover" />
+                        <ParallaxImage>
+                          <ServiceImage service={s} className="h-full w-full object-cover" />
+                        </ParallaxImage>
                         <div className="absolute inset-0 bg-gradient-to-tr from-navy-deep/80 via-navy-deep/35 to-navy-deep/10" />
                         <div className="absolute inset-0 blueprint-grid opacity-40 pointer-events-none" />
                         <span className="absolute top-6 left-6 font-display text-[80px] md:text-[110px] font-semibold leading-none text-white/[0.12]">
@@ -69,13 +56,15 @@ export function Services() {
                           </span>
                         </div>
                       </motion.div>
-                    </div>
+                    </Tilt>
 
                     {/* Text */}
                     <div className={`${flip ? "lg:order-1" : ""}`}>
                       <Eyebrow>Service {String(i + 1).padStart(2, "0")}</Eyebrow>
                       <h2 className="mt-5 font-display font-semibold tracking-tightish text-[28px] md:text-[36px] text-navy leading-[1.12]">
-                        {s.title}
+                        <Link to={`/services/${s.slug}`} className="hover:text-gold-deep transition-colors">
+                          {s.title}
+                        </Link>
                       </h2>
                       <p className="mt-5 text-[16px] leading-relaxed text-ink-soft">{s.detail}</p>
                       <ul className="mt-7 space-y-3">
@@ -88,6 +77,13 @@ export function Services() {
                           </li>
                         ))}
                       </ul>
+                      <Link
+                        to={`/services/${s.slug}`}
+                        className="mt-8 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.16em] text-gold-deep hover:text-navy transition-colors"
+                      >
+                        {s.title} — details, documents &amp; FAQs
+                        <ArrowRight size={15} strokeWidth={2} />
+                      </Link>
                     </div>
                   </div>
                 </Reveal>

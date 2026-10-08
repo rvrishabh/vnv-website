@@ -14,13 +14,14 @@ export const transitionFast: Transition = {
 };
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
+  // Content rises and tips forward slightly in 3D as it enters the viewport
+  hidden: { opacity: 0, y: 28, rotateX: 8, transformPerspective: 1100 },
+  visible: { opacity: 1, y: 0, rotateX: 0, transformPerspective: 1100 },
 };
 
 export const fadeUpSubtle: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 16, rotateX: 6, transformPerspective: 1100 },
+  visible: { opacity: 1, y: 0, rotateX: 0, transformPerspective: 1100 },
 };
 
 export const fadeIn: Variants = {

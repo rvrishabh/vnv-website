@@ -1,25 +1,19 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
-import { OFFICES } from "../data";
-
-const SERVICES = [
-  "Mortgage & Loan Security Valuation",
-  "Residential & Commercial Valuation",
-  "Agricultural & Land Appraisal",
-  "Legal Disputes & Arbitration",
-  "Market Research & Feasibility",
-];
+import { CITY_PAGES, FIRM, OFFICES, SERVICES } from "../data";
 
 const QUICK = [
   { label: "About Er. Shivam Verma", to: "/about" },
   { label: "Services", to: "/services" },
   { label: "Empanelled Banks", to: "/empanelled-banks" },
+  { label: "Valuation FAQs", to: "/faq" },
   { label: "VNV ValuPro", to: "/valupro" },
   { label: "Contact", to: "/contact" },
+  ...CITY_PAGES.map((c) => ({ label: `Property Valuer in ${c.city}`, to: `/${c.slug}` })),
 ];
 
-const CREDENTIALS = ["IBBI/RV/02/2023/15442", "IOV A-31744", "IEI AM1864656", "IOVRVF/M/L&B/10726"];
+const CREDENTIALS = [FIRM.ibbiRegNo, `IOV ${FIRM.iovMembership}`, `IEI ${FIRM.ieiMembership}`, FIRM.iovRvfNo];
 
 export function Footer() {
   return (
@@ -45,9 +39,9 @@ export function Footer() {
             <h4 className="font-mono text-[11px] uppercase tracking-[0.22em] text-gold-soft mb-4">Services</h4>
             <ul className="space-y-2.5">
               {SERVICES.map((s) => (
-                <li key={s}>
-                  <Link to="/services" className="text-[13.5px] text-white/65 hover:text-white transition-colors">
-                    {s}
+                <li key={s.slug}>
+                  <Link to={`/services/${s.slug}`} className="text-[13.5px] text-white/65 hover:text-white transition-colors">
+                    {s.title}
                   </Link>
                 </li>
               ))}
@@ -135,7 +129,7 @@ export function Footer() {
               </a>
             </div>
             <p className="font-mono text-[11px] tracking-wide text-white/45">
-              © 2025 V.N.V Engineers. All rights reserved.
+              © {new Date().getFullYear()} V.N.V Engineers. All rights reserved.
             </p>
           </div>
         </div>

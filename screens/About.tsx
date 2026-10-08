@@ -1,4 +1,4 @@
-import { Check, Award, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
+import { Check, Award, ArrowRight } from "lucide-react";
 import { Container, Button, Eyebrow, GoldDivider } from "../components/ui";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
@@ -10,44 +10,6 @@ const BADGES = [
   { code: "IOV", label: "Member A-31744" },
   { code: "IEI", label: "AM1864656" },
   { code: "C.Eng", label: "Chartered Engineer" },
-];
-
-const TIMELINE = [
-  {
-    org: "Formulaic Engineers Pvt. Ltd.",
-    role: "Regional Technical Manager",
-    period: "02/2022 – 08/2023",
-    note: "Finalised valuation reports and led the regional team; rate analysis of prevailing market and construction rates; ensured time-bound, quality submissions and resolved client/NBFC queries.",
-    icon: Briefcase,
-  },
-  {
-    org: "M/s Dinesh Kumar Sharma",
-    role: "Assistant Valuer",
-    period: "06/2019 – 11/2021",
-    note: "Real-estate valuation and inspection across residential, office, industrial, cold storage, factories, and vacant land; collected subject data and prepared reports for government and private banks.",
-    icon: Briefcase,
-  },
-  {
-    org: "CEMG Pvt. Ltd.",
-    role: "Executive Trainee",
-    period: "10/2018 – 06/2019",
-    note: "Prepared property descriptions via visual inspection and measurement with architectural-drawing knowledge; estimation for proposed/existing construction and land & building valuation surveys.",
-    icon: Briefcase,
-  },
-  {
-    org: "Garg Resurfacing & Constructions",
-    role: "Site Engineer",
-    period: "06/2016 – 10/2018",
-    note: "Layout, process, and detailing work at site; inspected properties to identify improvements and repairs while maintaining records and data.",
-    icon: Briefcase,
-  },
-  {
-    org: "IIMT, Meerut",
-    role: "Engineering Degree — B.Tech (Civil)",
-    period: "2012 – 2016",
-    note: "Bachelor of Technology in Civil Engineering — the foundation for a valuation practice grounded in construction and structural understanding.",
-    icon: GraduationCap,
-  },
 ];
 
 const EXPERTISE = [
@@ -162,52 +124,6 @@ export function About() {
                   </div>
                 </div>
               </Reveal>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Career timeline */}
-      <section className="relative bg-paper-warm">
-        <div className="absolute inset-0 blueprint-grid-light pointer-events-none" />
-        <Container className="relative py-20 md:py-24">
-          <Reveal>
-            <Eyebrow>Career History</Eyebrow>
-            <h2 className="mt-5 font-display font-semibold tracking-tightish text-[30px] md:text-[40px] text-navy leading-[1.1]">
-              A decade building valuation judgment
-            </h2>
-          </Reveal>
-
-          <div className="mt-14 relative">
-            <div className="absolute left-[19px] md:left-1/2 top-2 bottom-2 w-px bg-steel-deep md:-translate-x-1/2" />
-            <div className="space-y-10">
-              {TIMELINE.map((t, i) => {
-                const Icon = t.icon;
-                const left = i % 2 === 0;
-                return (
-                  <Reveal key={t.org} delay={(i % 2) * 70}>
-                    <div className={`relative md:grid md:grid-cols-2 md:gap-12 ${left ? "" : "md:[direction:rtl]"}`}>
-                      <div className={`pl-14 md:pl-0 ${left ? "md:text-right md:pr-12" : "md:text-left md:pl-12"} [direction:ltr]`}>
-                        <div
-                          className="absolute left-[10px] md:left-1/2 top-1.5 h-5 w-5 rounded-full bg-paper-warm border-2 border-gold md:-translate-x-1/2 grid place-items-center"
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                        </div>
-                        <div className="bg-white border border-steel rounded-sm p-6 hover:border-gold transition-colors duration-300">
-                          <div className={`flex items-center gap-2.5 ${left ? "md:justify-end" : ""}`}>
-                            <Icon size={16} strokeWidth={1.75} className="text-gold-deep" />
-                            <span className="font-mono text-[11px] tracking-wide text-gold-deep">{t.period}</span>
-                          </div>
-                          <h3 className="mt-3 font-display text-[20px] text-navy leading-snug">{t.org}</h3>
-                          <div className="mt-1 text-[13px] font-medium text-ink">{t.role}</div>
-                          <p className="mt-3 text-[13.5px] leading-relaxed text-ink-soft">{t.note}</p>
-                        </div>
-                      </div>
-                      <div className="hidden md:block" />
-                    </div>
-                  </Reveal>
-                );
-              })}
             </div>
           </div>
         </Container>

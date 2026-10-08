@@ -1,26 +1,16 @@
-import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { Tilt } from "./ScrollMotion";
 
 interface MotionCardProps {
   children: ReactNode;
   className?: string;
 }
 
-/** Subtle lift on hover for cards and panels */
+/** Cards and panels tilt in 3D toward the pointer, with a soft gold glare */
 export function MotionCard({ children, className = "" }: MotionCardProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
-    <motion.div
-      className={className}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <Tilt className={className} max={6}>
       {children}
-    </motion.div>
+    </Tilt>
   );
 }
